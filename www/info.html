@@ -1,0 +1,184 @@
+<!--<form id="form_main" method="get" onsubmit="return false;">-->
+<form id="form_main" method="post">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+                   
+<div class="container">
+    
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!-- 구글 광고 -->
+            <div class="row form-group">   
+                <div class="col-md-12 text-center">
+                    <!--<span class="text-muted">[Info]</span><br />-->
+                    <!-- Google AdSense DeliveryTracking002 시작 -->
+                    <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-7596282956342906"
+                         data-ad-slot="1612483676"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <!-- Google AdSense DeliveryTracking002 끝 -->
+                </div>    
+            </div> 
+            <!-- 구글 광고 -->
+
+            <hr />
+
+            <div class="row form-group">
+                <div class="col-md-2">
+                    <span class="col-md-12 badge"><label class="control-label">구분</label></span>
+                </div>
+                <!--
+                <div class="col-md-3">
+                    <select class="form-control input-md" id="infotype" name="infotype">{option_infotype}</select>
+                </div>
+                -->                
+                <div class="col-md-10">
+                    {radio_infotype}
+                </div>
+                <!--
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" id="button_go_search" value="조회하기" />
+                </div>
+                -->
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a class="btn btn-info" href="/" role="button">택배배송조회 메뉴가기</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!-- info -->
+            <div class="row form-group">
+                <div class="col-md-12 text-center">
+
+                    <!-- 웹사이트(Web Site) 광고 -->
+                    <!-- LOOP START row_ad_150_60 -->
+                    <div class="col-md-2 text-center">                        
+                        <!--&nbsp;<br />-->
+                        <span class="text-muted">[Web]</span><br />
+                        <a href="{ad_linkprice_150_60_link}" target="_blank">{ad_linkprice_150_60_text}</a><br />
+                        <a href="{ad_linkprice_150_60_link}" target="_blank">
+                            <iframe src="{ad_linkprice_150_60_src}" width="150" height="60" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="background-image:url(/files/logo/DeliveryTracking.png);"></iframe>   
+                        </a>
+                    </div>
+                    <!-- LOOP END row_ad_150_60 -->    
+                    <!-- 웹사이트(Web Site) 광고 -->
+
+                    <!-- 아이폰앱(iOS App) 배너 -->
+                    <!-- LOOP START row_app_ios -->
+                    <div class="col-md-4 text-center">
+                        &nbsp;<br />
+                        <span class="text-muted">[{app_os}]</span><br />
+                        <a href="{app_link}" target="_blank">{app_title}</a><br />
+                        <a href="{app_link}" target="_blank">{app_image}</a><br />
+                        <a href="{app_link}" target="_blank">{app_desc}</a>
+                        &nbsp;
+                    </div>
+                    <!-- LOOP END row_app_ios -->                                      
+                    <!-- 아이폰앱(iOS App) 배너 -->
+
+                    <!-- 안드로이트앱(Android App) 배너 -->
+                    <!-- LOOP START row_app_android -->
+                    <div class="col-md-4 text-center">
+                        &nbsp;<br />
+                        <span class="text-muted">[{app_os}]</span><br />
+                        <a href="{app_link}" target="_blank">{app_title}</a><br />
+                        <a href="{app_link}" target="_blank">{app_image}</a><br />
+                        <a href="{app_link}" target="_blank">{app_desc}</a>
+                        &nbsp;
+                    </div>
+                    <!-- LOOP END row_app_android -->                                      
+                    <!-- 안드로이트앱(Android App) 배너 -->
+
+                </div>
+            </div>
+            <!-- info -->
+            
+            <hr />
+
+            <!-- 텐핑 광고 -->
+            <div class="row form-group">   
+                <div class="col-md-12 text-center">
+                    <tenping class="adsbytenping" style="width:300px; margin:0 auto; display:block;" tenping-ad-type="N7Rxsvi2y%2f32n%2ffJXHVWaA%3d%3d" tenping-ad-client="tJ%2bq%2bgjobOTdb3%2fcXZxL719Ms%2fSCcW38knyGeNVGNQMDwbn0N2FXLlZXgNs5T3GZ"></tenping>
+                    <script async src="http://tenping.kr/scripts/adsbytenping.min.js"></script>
+                </div>    
+            </div> 
+            <!-- 텐핑 광고 -->
+
+        </div>
+    </div>
+    
+</div><!-- /container -->
+
+<input type="text" style="visibility:hidden; width:0px; hight:0px;" /> <!-- form 안에 textbox 추가 (1개만 있으면 엔터키에 자동 form sunmit 됨) -->
+
+</form>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    // $("#keyword").focus();   
+
+    // 페이지 로드시 윈도우 포커스
+    // $(this)[0].focus();
+    window.focus();
+
+    // 구분 라디오 클릭
+    $('input:radio[name="infotype"]').on("change", function() {
+        go_search();
+    });
+
+    // 조회하기 버튼 클릭
+    $("#button_go_search").on("click", function() {
+        go_search();
+    });
+});
+
+// Query string 구하기
+function get_list_querystring() {
+    var list_querystring = "";
+    
+    // list_querystring += "&infotype=" + $.trim($("#infotype").val());                        // 택배사    
+    list_querystring += "&infotype=" + $('input[name="infotype"]:checked').val();        // 택배사 (radio(옵션) 박스)    
+    // list_querystring += "&keyword=" + encodeURIComponent($.trim($("#keyword").val()));
+    // list_querystring += "&page=" + $.trim($("#page").val());
+ 
+    return list_querystring;
+}
+
+// 조회하기
+function go_search() {
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("이미 처리중입니다.");        
+        return;
+    }
+
+    var list_querystring = get_list_querystring();
+    
+    var location_href = "";
+    
+    $("#duplication_tag").val("Y");
+
+    location_href += "/info.php";
+    location_href += "?dummy=dummy";
+    location_href += list_querystring;
+    $(location).attr("href", location_href);
+}
+
+</script>

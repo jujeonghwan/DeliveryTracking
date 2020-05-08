@@ -1,0 +1,15 @@
+HTTP/1.1 302 Found
+Date: Sun, 02 Jun 2019 00:06:20 GMT
+Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips
+Location: https://hdexp.co.kr/deliverySearch2.hd
+Content-Length: 222
+Content-Type: text/html; charset=iso-8859-1
+
+HTTP/1.1 200 OK
+Date: Sun, 02 Jun 2019 00:06:20 GMT
+Server: Apache-Coyote/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Language: ko
+Content-Length: 17
+
+{"result":"fail"}

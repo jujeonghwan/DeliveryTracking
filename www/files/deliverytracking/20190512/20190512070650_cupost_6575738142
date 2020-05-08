@@ -1,0 +1,752 @@
+HTTP/1.1 200 OK
+Date: Sat, 11 May 2019 22:06:47 GMT
+Content-Length: 21360
+Set-Cookie: JSESSIONID=0000cWIGZhOGi4e95rIl4vk_W16:-1; Path=/; HttpOnly
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+Cache-Control: no-cache="set-cookie, set-cookie2"
+Content-Type: text/html; charset=UTF-8
+Content-Language: ko-KR
+
+
+
+
+    
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>국내택배 배송조회 결과 - CUpost</title>  
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="고객님의 국내택배 배송정보입니다.">
+	<meta name="keywords" content="CUpost, postbox, 국내택배 배송조회, 배송조회">
+	<link rel="stylesheet" type="text/css" href="/css/common.css">
+	<script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+ 	<script type="text/javascript" src="/js/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="/js/jquery.iframe-transport.js"></script>
+	<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="/js/dataTables.fixedColumns.min.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+ 	<script type="text/javascript" src="/js/libs.js"></script>
+ 	
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        //GNB 메뉴 호출
+	        $.GNB.init();
+	    });
+    </script>
+</head>
+<body >
+<div class="accessbility"><a href="#gotoMainContents">본문  바로가기</a></div><!-- Skip Navigation -->
+
+<!-- Header Start -->
+<header>
+	
+
+<script>
+$(document).ready(function() {
+	
+	 jQuery.ajax({
+         type:"GET",
+         url:"/postbox/common/GetMenuList.cupost",
+         dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+
+         success : function(data) {         	
+        	 var menuList = ""
+        	 var cnt = 0;
+        	 $.each(data.list,function(i,ob){
+        		 if(ob.UP_MENU_SEQ==""){
+        			cnt++;
+        		 }        		         	
+        	 });
+        	 if(cnt==6){        		 
+        		 $("#menuBody").addClass("nav6nd"); 
+        	 }else if(cnt==7){
+        		 $("#menuBody").addClass("nav7nd");
+        	 }else{
+        		 $("#menuBody").addClass("");
+        	 }
+        	 
+        	 
+        	 $.each(data.list,function(i,ob){
+        		 if(ob.UP_MENU_SEQ==""&&i==0){
+        			 menuList+="<li><a href='"+ob.p_MENU_URI+"'>"+ob.MENU_NM+"</a><div class='sub'><ul class='inner'>" 
+        		 }else if(ob.UP_MENU_SEQ==""&&i!=0){
+        			 menuList+="</ul></div></li><li><a href='"+ob.p_MENU_URI+"'>"+ob.MENU_NM+"</a><div class='sub'><ul class='inner'>" 
+        		 }else if(i==data.list.length){
+        			 menuList+="<li><a href='"+ob.p_MENU_URI+"'>"+ob.MENU_NM+"</a></li></ul></div></li>"
+        		 }else{
+        			 menuList+="<li><a href='"+ob.p_MENU_URI+"'>"+ob.MENU_NM+"</a></li>"
+        		 }     
+        		 if((window.location.href.substr(window.location.href.indexOf("/", 7)))==ob.p_MENU_URI){
+        			 
+        			 $("#gotoMainContents h1:first-child").text(ob.MENU_NM);        			         			
+        			 $("#navi_text").html("<span>홈</span>"+"<span>"+ob.UP_MENU_NM+"</span>"+"<span>"+ob.MENU_NM+"</span>");        			        		
+        				
+        			
+        		 }
+        	 });
+        	 
+        	 $("#menuBody").html(menuList);
+        	 $.GNB.init();
+        	///console.log(menuList);
+         },
+
+         complete : function(data) {
+
+         },
+
+         error : function(xhr, status, error) {
+
+               alert("에러발생");
+         }
+
+   });
+	
+	
+});
+
+</script>
+
+<div class="inner">
+		<h1><a href="/"><img src="/img/common/img_logo.png" alt="CU 포스트"></a></h1>
+		<span class="util">
+		
+			<!--로그인전-->
+			<a href="/postbox/common/login.cupost">로그인</a>
+			<a href="/postbox/common/join_step1.cupost">회원가입</a>
+			
+		</span>
+		<nav>
+			<ul id="menuBody">
+				<!-- <li><a href="/postbox/local/member/reservation.cupost">국내택배</a>
+					<div class="sub">
+						<ul class="inner" style="padding-left:365px">
+							<li><a href="/postbox/local/member/reservation.cupost">택배 예약</a></li>
+							<li><a href="/postbox/local/member/reservationBulk.cupost">대량발송 예약</a></li>					
+							<li><a href="/postbox/local/general/guideHowto.cupost">이용안내</a></li>
+						</ul>
+					</div>
+				</li>
+			
+				<li><a href="/postbox/ems/member/reservation.cupost">국제특송</a>
+					<div class="sub">
+						<ul class="inner" style="padding-left:462px">
+							<li><a href="/postbox/ems/member/reservation.cupost">국제특송 예약</a></li>
+							<li><a href="/postbox/ems/general/guideNation.cupost">배송가능국가</a></li>
+							<li><a href="/postbox/ems/general/guideHowto.cupost">이용안내</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="/postbox/delivery/local.cupost">배송조회</a>
+					<div class="sub">
+						<ul class="inner" style="padding-left:495px">
+							<li><a href="/postbox/delivery/local.cupost">국내택배</a></li>					
+							<li><a href="/postbox/delivery/ems.cupost">국제특송</a></li>
+							 <li><a href="/postbox/delivery/pickupNew.cupost">편의점 PICK-UP</a></li> 
+							<li><a href="/postbox/delivery/pickup.cupost">편의점 PICK-UP</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="/postbox/cuevent/eventList.cupost">이벤트&amp;소식</a>
+					<div class="sub">
+						<ul class="inner" style="padding-left:515px">
+							<li><a href="/postbox/cuevent/eventList.cupost">이벤트</a></li>
+							<li><a href="/postbox/cs/eventWinnerList.cupost">당첨자 발표</a></li>
+							<li><a href="/postbox/cs/newsList.cupost">CUpost 소식</a></li>
+							<li><a href="/postbox/cs/noticeList.cupost">공지사항</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="/postbox/membership/gradeBenefit.cupost">회원혜택</a>
+					<div class="sub">
+						<ul class="inner" style="padding-left:600px">
+							<li><a href="/postbox/membership/gradeBenefit.cupost">등급별 혜택</a></li>
+							<li><a href="/postbox/membership/coupon.cupost">할인쿠폰</a></li>
+							<li><a href="/postbox/membership/gradeInfo.cupost">회원등급 및 제휴신청</a></li>					
+						</ul>
+					</div>
+				</li> -->
+			</ul>
+			<div class="totalMenu">
+				<a href="#" class="btnOpen">전체메뉴보기</a>
+				
+<!--전체메뉴-->
+<div class="tMenuBox" style="display: none">
+	<dl>
+		<dt>국내택배</dt>
+		<dd><a href="/postbox/local/member/reservation.cupost">택배 예약</a>
+			<ul class="listType1">
+				<li><a href="/postbox/local/member/reservation.cupost">예약</a></li>
+				<li><a href="/postbox/local/member/reservationList.cupost">예약내역</a></li>
+			</ul>
+		</dd>
+		<dd><a href="/postbox/local/member/reservationBulk.cupost">대량발송 예약</a></dd>
+		<!-- 
+		<dd><a href="/postbox/local/general/handPrice.cupost">수기송장</a></dd>
+		-->
+		<dd><a href="/postbox/local/general/guideHowto.cupost">이용안내</a>
+			<ul class="listType1">
+				<li><a href="/postbox/local/general/guideHowto.cupost">이용방법</a></li>
+				<li><a href="/postbox/local/general/guidePrice.cupost">운임안내</a></li>
+				<li><a href="/postbox/local/general/guidePackaging.cupost">포장안내</a></li>
+				<li><a href="/postbox/local/general/guideImpossible.cupost">이용불가 상품</a></li>
+				<li><a href="/postbox/local/general/guideProcess.cupost">배송과정</a></li>
+			</ul>
+		</dd>
+	</dl>
+	<!-- 
+	<dl>
+		<dt>당일특송</dt>
+		<dd><a href="/postbox/today/member/reservation.cupost">국내택배접수</a>
+			<ul class="listType1">
+				<li><a href="/postbox/today/member/reservation.cupost">예약</a></li>
+				<li><a href="/postbox/today/member/reservationList.cupost">예약내역</a></li>
+			</ul>
+		</dd>
+		<dd><a href="/postbox/today/member/reservationBulk.cupost">대량발송접수</a></dd>
+		<dd><a href="/postbox/today/general/guideHowto.cupost">이용안내</a>
+			<ul class="listType1">
+				<li><a href="/postbox/today/general/guideHowto.cupost">이용방법</a></li>
+				<li><a href="/postbox/today/general/guidePrice.cupost">운임안내</a></li>
+				<li><a href="/postbox/today/general/guidePackaging.cupost">포장안내</a></li>
+				<li><a href="/postbox/today/general/guideImpossible.cupost">이용불가 상품</a></li>
+				<li><a href="/postbox/today/general/guideProcess.cupost">배송과정</a></li>
+			</ul>
+		</dd>
+	</dl> -->
+	<dl>
+		<dt>국제특송</dt>
+		<dd><a href="/postbox/ems/member/reservation.cupost">국제특송 예약</a>
+			<ul class="listType1">
+				<li><a href="/postbox/ems/member/reservation.cupost">예약</a></li>
+				<li><a href="/postbox/ems/member/reservationList.cupost">예약내역</a></li>
+			</ul>
+		</dd>
+		<dd><a href="/postbox/ems/general/guideNation.cupost">배송가능국가</a></dd>
+		<dd><a href="/postbox/ems/general/guideHowto.cupost">이용안내</a>
+			<ul class="listType1">
+				<li><a href="/postbox/ems/general/guideHowto.cupost">이용방법</a></li>
+				<li><a href="/postbox/ems/general/guidePrice.cupost">운임안내</a></li>
+				<li><a href="/postbox/ems/general/guideProcess.cupost">배송과정</a></li>
+			</ul>
+		</dd>
+	</dl>
+	<dl>
+		<dt>배송조회</dt>
+		<dd><a href="/postbox/delivery/local.cupost">국내택배</a></dd>
+		<!-- 
+		<dd><a href="/postbox/delivery/today.cupost">당일특송</a></dd>
+		 -->
+		<dd><a href="/postbox/delivery/ems.cupost">국제특송</a></dd>
+		
+		<dd><a href="/postbox/delivery/pickupNew.cupost">편의점 PICK-UP</a></dd>
+		
+		 <!-- 
+		<dd><a href="/postbox/delivery/pickup.cupost">편의점 PICK-UP</a></dd>
+		 -->
+	</dl>
+	<dl>
+		<dt>이벤트&amp;소식</dt>
+		<dd><a href="/postbox/cuevent/eventList.cupost">이벤트</a>
+			<ul class="listType1">
+				<li><a href="/postbox/cuevent/eventList.cupost">진행 중인 이벤트</a></li>
+				<li><a href="/postbox/cuevent/eventList.cupost?searchStatus=E">지난 이벤트</a></li>
+			</ul>
+		</dd>
+		<dd><a href="/postbox/cs/eventWinnerList.cupost">당첨자 발표</a></dd>
+		<dd><a href="/postbox/cs/newsList.cupost">CUpost 소식</a></dd>
+		<dd><a href="/postbox/cs/noticeList.cupost">공지사항</a></dd>
+	</dl>
+	<dl>
+		<dt>회원혜택</dt>
+		<dd><a href="/postbox/membership/gradeBenefit.cupost">등급별 혜택</a></dd>
+		<dd><a href="/postbox/membership/coupon.cupost">할인쿠폰</a></dd>
+		<dd><a href="/postbox/membership/gradeInfo.cupost">회원등급 및 제휴신청</a>
+			<ul class="listType1">
+				<li><a href="/postbox/membership/gradeInfo.cupost">신청안내</a></li>
+				<li><a href="/postbox/membership/gradeApply.cupost">신청</a></li>
+			</ul>
+		</dd>
+		<!-- 
+		<dd><a href="/postbox/membership/shoppingMall.cupost">쇼핑몰 택배</a></dd>
+		-->
+	</dl>
+	<a href="#" class="close">닫기</a>
+</div>
+<div class="dimmed" style="display: none"></div>
+			</div>
+		</nav>
+	</div>
+</header>
+<!--// Header End -->
+
+
+
+<!-- Location Start -->
+<div class="location" id="navi_text">
+	<span>홈</span>
+</div>
+<!--// Location End -->
+
+<section id="gotoMainContents" class="contents">
+		
+        
+
+
+
+
+  
+
+<h1 data-depth1="배송조회" data-depth2="국내택배">배송조회</h1>
+
+	<div class="tabBox">
+		<ul class="tabList shipping">
+			<li class="on"><a href="/postbox/delivery/local.cupost">국내택배</a></li>
+			<li style="display:none"><a href="/postbox/delivery/today.cupost">당일특송</a></li>
+			<li><a href="/postbox/delivery/ems.cupost">국제특송</a></li>
+			<li><a href="/postbox/delivery/pickupNew.cupost">편의점 PICK-UP</a></li>
+			<!--<li><a href="/postbox/delivery/pickup.cupost">편의점 PICK-UP</a></li> -->
+		</ul>
+	</div>
+		<form id="form" method="post">
+	<div class="shippingSearch">
+		<p>운송장번호를 입력 하시면 배송상태를 확인하실 수 있습니다.</p>
+		<div class="numBox">
+				<input type="text" id="invoice_no"  maxlength="10" name="invoice_no" placeholder="‘-’없이 숫자 10~20자리 입력" data-numonly='true' value="6575738142" title="운송장번호">
+			<a href="javascript:search()" role="button">조회</a>
+		</div>
+	</div>
+	</form>
+	<script>
+	$(document).ready(function(){
+		$("#invoice_no").keydown(function (event) { if(event.which==13){search();}});
+	});
+	function search(){
+			var invoice_no = $("#invoice_no").val();
+			if (invoice_no == "") {
+				alert("송장번호를 입력해 주세요.");
+				$("#invoice_no").focus();
+			} else if (isNaN(invoice_no)) {
+				alert("숫자만 입력해 주세요.");
+				$("#invoice_no").val("");
+				$("#invoice_no").focus();
+			} else if (invoice_no.length != 10) {
+				alert("10자리 운송장 번호를 입력해 주세요.");
+				$("#invoice_no").val("");
+				$("#invoice_no").focus();
+			} else if (invoice_no.substring(0, 1) == "7") {
+				alert("편의점 PICK-UP 운송장 입니다.\n편의점 PICK-UP 페이지로 이동 합니다.");
+				//location.href="/mobile/delivery/pickupNew.cupost";
+				location.href="/mobile/delivery/pickup.cupost";
+			} else {
+				$("form").attr("action","/postbox/delivery/localResult.cupost");
+				$("form").submit();
+			}
+		}
+	</script>
+    
+    <h3>기본배송정보</h3>
+	<table class="tableType1">
+		<caption>당일특송 배송조회 결과 기본배송정보 표입니다. 운송장번호, 상품정보, 접수일자, 접수시간, 보내는분, 받는분, 점포명, 구분 정보를 확인할 수 있습니다.</caption>
+		
+		<colgroup>
+			<col style="width:20%">
+			<col style="width:30%">
+			<col style="width:20%">
+			<col style="width:30%">
+		</colgroup>
+		
+		<tbody>
+			
+			<tr>
+				<th scope="row">운송장번호</th>
+				<td>6575738142</td>
+				<th scope="row">상품정보</th>
+				<td>잡화/서적</td>
+			</tr>
+			<tr>
+				<th scope="row">접수일자</th>
+				<td>
+				
+				2019.04.22
+				</td>
+				<th scope="row">접수시간</th>
+				<td>
+					14:49</td>
+			</tr>
+			<tr>
+				<th scope="row">보내는분</th>
+				<td>이희*</td>
+				<th scope="row">받는분</th>
+				<td>De*********</td>
+			</tr>
+			<tr>
+				<th scope="row">점포명</th>
+				<td>******</td>
+				<th scope="row">구분</th>
+				<td></td>
+			</tr>
+			
+		</tbody>
+	</table>
+	
+	<h3>배송상태</h3>
+	
+	<iframe src="https://www.doortodoor.co.kr/jsp/cmn/TrackingCUpost.jsp?pTdNo=6575738142" width="100%" height="500" scrolling="no" frameborder="0" title="배송상태" class="mt20"></iframe>
+	
+    
+
+</section>
+<aside class="quick">
+	<a href="#" class="btnQuick">quick menu</a>
+	<div class="quickCont">
+		<a href="/postbox/partner/convenienceStore.cupost" class="quick01">편의점 위치</a>
+		<a href="/postbox/local/member/reservation.cupost" class="quick02">국내예약</a>
+		<a href="/postbox/delivery/local.cupost" class="quick03">배송조회</a>
+	</div>
+	<a href="#" class="btnTop" title="맨위로">TOP</a>
+</aside>
+<footer>
+		
+	<div class="footMenu">
+		<span>
+			<a href="/postbox/company.cupost">회사소개</a>
+			<a href="/postbox/terms/terms.cupost">약관</a>
+			<a href="/postbox/terms/privacy.cupost">개인정보 취급방침</a>
+			<a href="/postbox/partner/pickupUse.cupost">사업제휴</a>
+			<a href="/postbox/partner/convenienceStore.cupost">편의점 찾기</a>
+			<a href="/postbox/customer/faqList.cupost">고객센터</a>
+		</span>
+		
+		
+		<div class="selType1" style="width:150px">
+			<a href="#" title="열기">family site</a>
+			<ul style="display: none">
+				<li><a href="http://cu.bgfretail.com/index.do" target="_blank">CU</a></li>
+			</ul>
+		</div>
+		
+		<!-- 
+		<select onchange="openFamily(this)" title="family site">
+			<option value="">family site</option>
+			<option value="http://cu.bgfretail.com/index.do">CU</option>
+		</select>
+		-->
+	</div>
+	<div class="footSect">
+		<address>주소 : 서울특별시 광진구 광나루로56길 85 테크노마트 2405호</address>
+		<p class="info"><span>상호명 : ㈜BGF포스트</span><span>대표자명 : 전태진</span><span>사업자등록번호 : 869-87-00550</span><span>고객센터 : 1577-1287</span><span>제휴문의 : 1566-1025</span><span>FAX : 02-6711-0699</span></p>
+		<p class="fc3">COPYRIGHT 2016 CUpost ALL RIGHTS RESERVED.</p>
+		
+		<a title="새창" href="http://www.wa.or.kr/board/list.asp?BoardID=0006" target="_blank" class="wa" style="right:130px;">
+			<img alt="(사)한국장애인단체총연합회 한국웹접근성인증평가원 웹 접근성 우수사이트 인증마크(WA인증마크)" src="/img/common/ico_wa.png" width="60" height="43">
+		</a>
+		<span class="snsLink">
+			<a href="http://blog.naver.com/cupost" target="_blank">blog</a>
+			<a href="https://www.facebook.com/cupost/" target="_blank">facebook</a>
+			<a href="https://www.instagram.com/cupost__" target="_blank">instagram</a>
+		</span>
+		
+		<!-- CVSnet 배너링크 표시 유무 체크 -->
+
+	</div>
+	<script>
+		function openFamily(el){
+			var url = $(el).val();
+			if(""!=url)
+				window.open(url);
+		}
+	</script>
+</footer>
+
+<!--//전체메뉴-->
+<div id="ux-popup"></div>
+
+	
+<script type="text/javascript">
+var phoneList = [1522, 1544, 1566, 1577, 1588, 1599, 1600, 1644, 1661, 1666, 1670, 1688, 1800, 1833, 1855, 1877];
+$(document).ready(function(){
+	//
+	$(".popClose").click(function(){
+		//hidePopup();
+	});
+
+	$("#gotoMainContents>a").click(function(){
+	//	showPopup();
+	});
+
+	//팝업 닫힘
+	function hidePopup(layerPop){
+		$("#"+layerPop).hide();
+		$(".dimmed").hide();
+	}
+	//팝업 열기 
+	function showPopup(layerPop){
+		$("#"+layerPop).show();
+		$(".dimmed").show();
+	}
+	
+	
+	keySet();
+	
+	$("[data-tel='true']").on("focusout",function(){
+		setTelAction(this);
+	});
+	
+	$('.addrBtn').off('click');
+	$(".contactBtn").off('click');
+});
+</script>
+	<script>
+		function blank(){}
+		function fNewWin(url, width, height)  {
+			var x_pos = (screen.availWidth - width) / 2;
+			var y_pos = (screen.availHeight - height) / 2;
+			window.open(url, 'regiWin', 'width=' + width +',height='+ height + ', left=' + x_pos + ', top=' + y_pos+', resizable=no,scrollbars=yes');
+		}
+		function fNewWin(url, width, height,target)  {
+			var x_pos = (screen.availWidth - width) / 2;
+			var y_pos = (screen.availHeight - height) / 2;
+			window.open(url, target, 'width=' + width +',height='+ height + ', left=' + x_pos + ', top=' + y_pos+', resizable=no,scrollbars=yes');
+		}
+		function setTelAction(ob){
+			var firsrNum = parseInt($(ob).val());
+	   	    var $thirdNum = $(ob).nextAll().eq(1);
+
+		   	 if (phoneList.indexOf(firsrNum) != -1) {
+		         $thirdNum.val("");
+		         $thirdNum.attr("disabled", true);
+		         $thirdNum.attr("placeholder", "미입력");
+		     } else {
+		         $thirdNum.attr("disabled", false);
+		         $thirdNum.attr("placeholder", "");
+		     }
+
+		}
+		function setTel(){
+			$("[data-tel='true']").on("focusout",function(){
+				setTelAction(this);
+			});
+		}
+		function setTelInit(){
+			$("[data-tel='true']").each(function(i,ob){
+				setTelAction(ob);
+			});
+		}
+		function keySet(){
+			$("[data-idonly='true']").on("keyup",function(){
+				   var re =/[^a-zA-Z0-9]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+			$("[data-numonly='true']").on("keyup",function(){
+				   var re =/[^0-9.]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+				
+				$("[data-alphaonly='true']").on("keyup",function(){
+					 var re = /[^a-zA-Z\s]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+				
+				$("[data-alphanumonly='true']").on("keyup",function(){
+					 var re = /[^a-zA-Z0-9\s]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+				
+				$("[data-nameonly='true']").on("keyup",function(){
+					 var re =/[^a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣\s]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+				
+				$("[data-addronly='true']").on("keyup",function(){
+					 var re = /[^a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣\s\.\_#\@\-\~\[\]\,\(\)]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+				
+
+				$("[data-eaddronly='true']").on("keyup",function(){
+					 var re = /[^a-zA-Z0-9\s\.\_#\@\-\~\[\]\,]/g;
+		         var temp=$(this).val();       
+		         if(re.test(temp)){
+		                   $(this).val(temp.replace(re,""));
+		         }
+				});
+		}
+		</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-92509665-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>HTTP/1.1 200 OK
+Date: Sat, 11 May 2019 22:06:50 GMT
+Content-Type: text/html; charset=utf-8
+Set-Cookie: WMONID=jQ7d7s8Hsua;Expires=Sun, 10-May-2020 22:06:50 GMT;Path=/
+Set-Cookie: JSESSIONID=fdNNV1Ywd9aLKlgK3OJAqCrtzHtn4LUkQKNSyTMFomQR3msBUsIkb0Of8G5KgLae.edtdwas4_servlet_engine1;Path=/
+Transfer-Encoding: chunked
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+	<title>:: 보내시는 분의 정성까지.. 택배대한통운 ::</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=7" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8;" />
+	<link rel="stylesheet" type="text/css" href="/css/etc.css" media="all" />
+
+			<script>
+				var invcNo = "6575738142"; 
+				if(isNaN(invcNo)) {
+					alert("운송장 번호는 숫자만 입력가능합니다.");
+					history.go(-1);
+				}
+
+//				if (!(invcNo.length == 10 )) {
+//					alert("운송장 번호는 10자리만 입력가능합니다.");
+//					history.go(-1);
+//				}
+				if (!(invcNo.length == 10 || invcNo.length == 12)) {
+					alert("운송장 번호는 12자리 또는 10자리만 입력가능합니다.");
+					history.go(-1);
+				}
+				
+			</script>
+		
+<script type="text/javascript">
+<!--
+// 집배점 정보 팝업
+function checkDetail(reg_bran_id) {
+	var imgObj = new Image();
+	var theURL="/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInchgSaleSmlInfoACT&bran_id="+reg_bran_id;
+	window.open(theURL,'집배점','top=100px,left=300px,status=yes,resizable=no,menubar=no,scrollbars=no,width=554,height=620');
+}
+//-->
+</script>
+</head>
+<body>
+<!-- container :: START -->
+<div class="etcDep">			
+	<h4 class="onPage"><a href="http://www.cjlogistics.com/app"><img src="/images/tracking_app_link.png" alt="내 손안에 모바일 택배! CJ대한통운 택배 앱 설치 (for guest)" /></a></h4>
+	<table width="600" border="0" cellspacing="0" cellpadding="0" class="tepTb mt10" summary="이 표는 배송 상세 내역입니다. 1열 운송장번호, 2열 보내는분, 3열 받는분, 4열 물품정보, 5열 수량으로 구성되어 있습니다.">
+		<caption style="display: none;">배송 상세 내역 표</caption>
+		
+		<colgroup>
+			<col width="104" /><col width="95" /><col width="95" /><col /><col width="98" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>운송장번호</th>
+				<th>보내는분</th>
+				<th>받는분</th>
+				<th>물품정보</th>
+				<th>수량</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+						<tr align="center" bgcolor="#FFFFFF"> 
+			                <td height="0">6575738142</td>
+			                <td height="0">이희영</td>
+			                <td height="0">Debie (MIL)</td>
+			                <td height="0">잡화/서적류 [20000] 기타상품 24</td>
+			                <td height="0">1</td>
+			            </tr>							
+						
+		</tbody>
+	</table>
+	
+	<table width="600" border="0" cellspacing="0" cellpadding="0" class="tepTb mt20" summary="이 표는 배송상태 내역입니다. 1열 추적일시, 2열 화물상태, 3열 담당집배점, 4열 상대업업소로 구성되어 있습니다.">
+	<caption style="display:none;" >배송상태</caption>
+		<colgroup>
+			<col width="108" /><col /><col width="85" /><col width="85" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>추적일시</th>
+				<th>화물상태</th>
+				<th>담당집배점</th>
+				<th>상대집배점</th>
+			</tr>
+		</thead>
+		<tbody>
+	        
+	            <tr>
+	                <td>2019-04-22 18:09:05.0</td>
+	                <td style="text-align: left; padding-left: 5px;">보내시는 고객님으로부터 상품을 인수받았습니다
+	                	                
+	                </td>
+	                <td><a href="javascript:checkDetail('3327');"  class="board_contents">서울강동길동</a></td>
+	                <td>&nbsp;</td>
+	            </tr>
+				
+	            <tr>
+	                <td>2019-04-23 04:28:46.0</td>
+	                <td style="text-align: left; padding-left: 5px;">배송지역으로 상품이 이동중입니다.
+	                	                
+	                </td>
+	                <td><a href="javascript:checkDetail('V040');"  class="board_contents">군포HUB</a></td>
+	                <td>청원Hub</td>
+	            </tr>
+				
+	            <tr>
+	                <td>2019-04-23 12:23:53.0</td>
+	                <td style="text-align: left; padding-left: 5px;">고객님의 상품이 배송지에 도착하였습니다.(배송예정:서동명 010-5644-3296)
+	                	                
+	                </td>
+	                <td><a href="javascript:checkDetail('V121');"  class="board_contents">종로A</a></td>
+	                <td>청원Hub</td>
+	            </tr>
+				
+	            <tr>
+	                <td>2019-04-23 13:23:10.0</td>
+	                <td style="text-align: left; padding-left: 5px;">고객님의 상품이 배송완료 되었습니다.(담당사원:서동명 010-5644-3296)
+	                	                
+	                </td>
+	                <td><a href="javascript:checkDetail('4426');"  class="board_contents">서울신동대문</a></td>
+	                <td>&nbsp;</td>
+	            </tr>
+				
+	            <tr>
+	                <td>2019-04-23 15:07:53.0</td>
+	                <td style="text-align: left; padding-left: 5px;">고객님의 상품을 배송할 예정입니다.(14∼16시)(배송담당:서동명 010-5644-3296)
+	                ( 배달예정시간 : 14∼16시 ) 	                
+	                </td>
+	                <td><a href="javascript:checkDetail('4426');"  class="board_contents">서울신동대문</a></td>
+	                <td>&nbsp;</td>
+	            </tr>
+				 
+		</tbody>
+	</table>
+</div>
+<!-- //content :: END -->
+</body>
+</html>

@@ -1,0 +1,309 @@
+<form id="form_main" method="post" enctype="multipart/form-data">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+                   
+<div class="container">
+    
+    <div class="panel panel-default">
+        <div class="panel-body">           
+            
+            <div class="row form-group">
+                <div class="col-md-2">
+                    <span class="col-md-12 badge"><label class="control-label">택배사</label></span>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control input-md" id="deliverytype" name="deliverytype">{option_deliverytype}</select>
+                </div>
+                <!-- radio(옵션) 박스
+                <div class="col-md-10">
+                    {radio_deliverytype}
+                </div>
+                -->
+                <div class="col-md-2">
+                    <span class="col-md-12 badge"><label class="control-label">운송장번호</label></span>
+                </div>
+                <div class="col-md-3">
+                    <input type="search" class="form-control" id="keyword" name="keyword" value="{keyword}" />
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" id="button_go_search" value="조회하기" />
+                </div>
+            </div>
+            
+        </div>
+    </div>
+        
+    
+    <div class="row">
+        <div class="col-md-2 text-left">
+            <input type="button" class="btn btn-danger btn-xs" id="button_go_select_delete_process" value="선택항목 삭제하기" />
+        </div>
+    </div>            
+            
+    <table class="table table-bordered table-condensed table-hover">
+        <colgroup>
+            <col width="3%" />
+            <col width="5%" />
+            <col width="15%" />            
+            <col width="12%" />
+            
+            <col width="13%" />
+            <col width="12%" />
+            <col width="10%" />
+            
+            <col width="10%" />
+            <col width="10%" />
+            <col width="10%" />
+        </colgroup>
+        
+        <thead>
+            <tr class="success">
+                <th class="text-center"><input type="checkbox" id="check_all" name="check_all" value="check_all" /></th>
+                <th class="text-center">NO</th>
+                <th class="text-center">조회일시<!--등록일시--></th>                                        
+                <th class="text-center">택배사구분</th>
+                
+                <th class="text-center">검색어</th>
+                <th class="text-center">운송장번호</th>
+                <th class="text-center">배송진행상태</th>
+                
+                <th class="text-center">상세보기/닫기</th>
+                <th class="text-center">다시조회</th>
+                <th class="text-center">삭제하기</th>
+            </tr>
+        </thead>
+            
+        <tbody>
+            <!-- LOOP START row -->
+            <tr class="danger">
+                <th class="text-center"><input type="checkbox" id="check_dt_id_{dt_id}" name="check_dt_id[]" value="{dt_id}" /></th>
+                <td class="text-center">{no}</td>
+                <td class="text-center">{dt_regtime}</td>                
+                <td class="text-center">{dt_deliverytype_text}</td>
+                
+                <td class="text-center">{dt_keyword}</td>
+                <td class="text-center">{dt_invoice}</td>
+                <td class="text-center"><span style="color:{color_dt_deliveryprogress}">{dt_deliveryprogress}</span></td>
+                
+                <td class="text-center"><input type="button" class="btn btn-success btn-xs" value="상세보기/닫기" onclick="deliverytracking_toggle('{dt_id}');" /></td>
+                <td class="text-center"><input type="button" class="btn btn-info btn-xs" value="다시조회" onclick="go_search_again('{dt_deliverytype}', '{dt_keyword}');" /></td>
+                <td class="text-center"><input type="button" class="btn btn-danger btn-xs" value="삭제하기" onclick="deliverytracking_delete_process('{dt_id}');" /></td>
+            </tr>
+            <tr id="deliverytracking_tr_{dt_id}" class="deliverytracking_tr" style="display:{deliverytracking_display};">
+                <td colspan="10" class="text-center">{dt_result}</td>
+            </tr>
+            <!-- LOOP END row -->
+        </tbody>
+    </table>
+    
+    <div class="row">
+        &nbsp;
+    </div>
+    
+</div><!-- /container -->
+
+</form>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    $("#keyword").focus();   
+        
+    // 검색어 엔터키 입력
+    $("#keyword").on("keyup keypress", function(e) {
+        if (e.keyCode == 13) {            
+            go_search();
+        }
+    });
+
+    // 조회하기 버튼 클릭
+    $("#button_go_search").on("click", function() {
+        go_search();
+    });
+    
+    // 선택항목 삭제하기 버튼 클릭
+    $("#button_go_select_delete_process").on("click", function() {
+        go_select_delete_process();
+    });
+    
+    // 체크박스 전체선택 클릭
+    $("#check_all").on("click", function() {            
+        var checked_value = $(this).prop("checked");
+        
+        checkbox_checked_all(checked_value);        
+    });
+});
+
+// Query string 구하기
+function get_list_querystring() {
+    var list_querystring = "";
+    
+    list_querystring += "&deliverytype=" + $.trim($("#deliverytype").val());                        // 택배사    
+    // list_querystring += "&deliverytype=" + $('input[name="deliverytype"]:checked').val();        // 택배사 (radio(옵션) 박스)    
+    list_querystring += "&keyword=" + encodeURIComponent($.trim($("#keyword").val()));
+    // list_querystring += "&page=" + $.trim($("#page").val());
+ 
+    return list_querystring;
+}
+    
+// 조회하기
+function go_search() {
+    /* radio(옵션) 박스
+    if ($('input:radio[name="deliverytype"]').is(":checked") == false) {
+        alert("택배사를 선택하세요.");
+        $('input:radio[name="deliverytype"]').first().focus();
+        return;
+    }
+    */
+    
+    // 작업중 택배사
+    /* radio(옵션) 박스
+    // alert($('input[name="deliverytype"]:checked').val());       
+    if ($('input[name="deliverytype"]:checked').val() == "coupang") {
+        if (confirm("쿠팡로켓배송 배송조회 작업중입니다.")) {
+            return;
+        }
+    }
+    */
+
+    /*
+    // alert ($.trim($("#deliverytype").val()));
+    if ($.trim($("#deliverytype").val()) == "fedex") {
+        if (confirm("FedEx(국제) 배송조회 작업중입니다.")) {
+            return;
+        }
+    }
+    */    
+    
+    if ($.trim($("#keyword").val()) == "") {
+        alert("운송장번호를 입력하세요.");
+        $("#keyword").focus();
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+        
+    var list_querystring = get_list_querystring();
+    
+    var location_href = "";
+    location_href += "{site_url}";      // 예) http://www.deliverytracking.kr/
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // 전체 택배사 일괄조회
+    if ($.trim($("#deliverytype").val()) == "") {
+        alert("해당운송장번호로 전체택배사를 일괄 조회합니다. 완료될 때까지 기다려주세요.");
+        location_href += "deliverytracking_bundle_search.php";
+    }
+    // 전체 택배사 일괄조회
+    ////////////////////////////////////////////////////////////////////////////////
+    
+    
+    location_href += "?dummy=dummy";
+    location_href += list_querystring;
+    
+    // alert($.trim($("#deliverytype").val()));
+    
+    $(location).attr("href", location_href);
+}
+
+// 선택항목 삭제하기
+function go_select_delete_process() {            
+    if ($('input:checkbox[name="check_dt_id[]"]:checked').length <= 0) {
+        alert("한항목 이상 선택하세요.");
+        return;
+    }
+    
+    if (!confirm("선택항목을 삭제하시겠습니까?")) {
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "deliverytracking_select_delete_process.php");    
+    $("#form_main").submit();
+}
+
+// 체크박스 전체 선택 해제
+function checkbox_checked_all(checked_value) {
+    $('input:checkbox[name="check_dt_id[]"]').each(function() {     
+        $(this).prop("checked", checked_value);
+    });
+}
+
+// 상세보기/닫기
+function deliverytracking_toggle(dt_id) {    
+    // 전체항목 숨기기
+    // $(".deliverytracking_tr").hide();
+    
+    // 선택항목 보이기
+    // $("#deliverytracking_tr_" + dt_id).show();   
+
+    // 선택항목 보이기/숨기기
+    $("#deliverytracking_tr_" + dt_id).toggle();
+}
+
+// 다시조회
+function go_search_again(dt_deliverytype, dt_keyword) {
+    /*
+    if (!confirm("다시조회하시겠습니까?")) {
+        return;
+    }
+    */
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    var location_href = "";
+    location_href += "{site_url}";      // 예) http://www.deliverytracking.kr/
+    location_href += "?dummy=dummy";
+    location_href += "&deliverytype=" + dt_deliverytype;
+    location_href += "&keyword=" + encodeURIComponent(dt_keyword);
+    
+    $(location).attr("href", location_href);
+}
+
+// 삭제하기
+function deliverytracking_delete_process(dt_id) {
+    /*
+    if (!confirm("삭제하시겠습니까?")) {
+        return;
+    }
+    */
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+        
+    var list_querystring = get_list_querystring();
+    
+    var location_href = "deliverytracking_delete_process.php?dummy=dummy";
+    location_href += "&dt_id=" + dt_id;    
+    location_href += list_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+</script>

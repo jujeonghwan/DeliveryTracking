@@ -1,0 +1,141 @@
+<!--<form id="form_main" method="get" onsubmit="return false;">-->
+<form id="form_main" method="post">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+                   
+<div class="container">
+    
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!-- 구글 광고 -->
+            <div class="row form-group">   
+                <div class="col-md-12 text-center">
+                    <!--<span class="text-muted">[Info]</span><br />-->
+                    <!-- Google AdSense DeliveryTracking002 시작 -->
+                    <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-7596282956342906"
+                         data-ad-slot="1612483676"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <!-- Google AdSense DeliveryTracking002 끝 -->
+                </div>    
+            </div> 
+            <!-- 구글 광고 -->
+
+            <hr />
+
+            <div class="row form-group">                
+                <div class="col-md-2">
+                    <span class="col-md-12 badge"><label class="control-label">사용자접속정보</label></span>
+                </div>     
+                <!--           
+                <div class="col-md-3">
+                    <select class="form-control input-md" id="infotype" name="infotype">{option_infotype}</select>
+                </div>
+                
+                <div class="col-md-10">
+                    {radio_infotype}
+                </div>
+                -->                
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" id="button_go_search" value="조회하기(새로고침)" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a class="btn btn-info" href="/" role="button">택배배송조회 메뉴가기</a>
+        </div>
+    </div>
+
+    <div> 
+        <table class="table table-bordered table-condensed table-hover table-responsive" id="link">
+            <colgroup>
+                <col width="5%" />
+                
+                <col width="20%" />
+                <col width="75%" />
+            </colgroup>
+            
+            <thead>
+                <tr class="danger">
+                    <th class="text-center" colspan="3">사용자 접속정보</th>
+                </tr>
+                <tr class="danger">
+                    <th class="text-center">NO</th>
+                    <th class="text-center">항목</th>                
+                    <th class="text-center">값</th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                <!-- LOOP START row -->
+                <tr class="{tr_class}">
+                    <td class="text-center">{no}</td>
+                    <td class="text-center"><strong>{data_title}</strong></td>
+                    <td class="text-center">{data_value}</td>
+                </tr>
+                <!-- LOOP END row -->
+            </tbody>
+        </table>
+    </div>
+    
+</div><!-- /container -->
+
+<input type="text" style="visibility:hidden; width:0px; hight:0px;" /> <!-- form 안에 textbox 추가 (1개만 있으면 엔터키에 자동 form sunmit 됨) -->
+
+</form>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    // $("#keyword").focus();   
+
+    // 페이지 로드시 윈도우 포커스
+    // $(this)[0].focus();
+    window.focus();
+
+    // 조회하기 버튼 클릭
+    $("#button_go_search").on("click", function() {
+        go_search();
+    });
+});
+
+// Query string 구하기
+function get_list_querystring() {
+    var list_querystring = "";
+    
+    return list_querystring;
+}
+
+// 조회하기
+function go_search() {
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("이미 처리중입니다.");        
+        return;
+    }
+
+    var list_querystring = get_list_querystring();
+    
+    var location_href = "";
+    
+    $("#duplication_tag").val("Y");
+
+    location_href += "/connectinfo.php";
+    location_href += "?dummy=dummy";
+    location_href += list_querystring;
+    $(location).attr("href", location_href);
+}
+
+</script>

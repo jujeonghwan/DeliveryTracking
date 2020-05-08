@@ -1,0 +1,158 @@
+
+<div class="container">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!-- 배너 -->
+            <div class="row form-group">
+                <div class="col-md-12 text-center">
+                    <!-- 택배사 배너 -->    
+                    <div class="col-md-12 text-center">
+                        &nbsp;<br />
+                        <span class="col-md-12 badge"><label class="control-label">택배사 배송조회 페이지 바로가기</label></span>                    
+                    </div>
+                    
+                    <!-- LOOP START row_delivery -->
+                    <div class="col-md-2 text-center">
+                        &nbsp;<br />
+                        <span class="text-muted text-danger">{{delivery_code}}</span><br />
+                        <a href="{delivery_link}" target="_blank">{delivery_text}</a><br />
+                        <a href="{delivery_link}" target="_blank">{delivery_img}</a><br />                        
+                        &nbsp;<br />
+                    </div>
+                    <!-- LOOP END row_delivery -->                                      
+                    <!-- 택배사 배너 -->
+                </div>
+            </div>
+            <!-- 배너 -->
+
+            <hr />
+
+            <!-- 배송조회 링크주소 -->
+            <div class="row form-group">
+                <div class="col-md-12 text-center">
+                    <div class="col-md-12 text-center text-muted">
+                        <b>[배송조회 링크주소 형식]</b><br />
+                        http://www.deliverytracking.kr/?dummy=one&deliverytype=<span class="text-danger">{택배사코드}</span>&keyword=<span class="text-warning">{운송장번호}</span>
+                    </div>
+                    <br />
+                    <div class="col-md-12 text-center text-muted">
+                        <b>[CJ대한통운 링크주소 예]</b><br />
+                        http://www.deliverytracking.kr/?dummy=one&deliverytype=<span class="text-danger">doortodoor</span>&keyword=<span class="text-warning">1234</span>
+                    </div>
+                    <br />
+                    <div class="col-md-12 text-center text-muted">
+                        <b>[택배사 코드]</b><br />
+                        '택배사 배송조회 페이지 바로가기' 택배사별 코드 참조 예) <span class="text-info">CJ대한통운</span> : <span class="text-danger">doortodoor</span>
+                    </div>
+                    <br />
+                    <div class="col-md-12 text-center text-muted">
+                        '택배사 추가, 오류 수정'할 '정보(택배사, 송장번호)'를<br />
+                        사이트 아래의 이메일로 보내주시면 작업하겠습니다.
+                    </div>
+                </div>
+            </div>
+            <!-- 배송조회 링크주소 -->   
+        </div>
+    </div>
+    
+</div><!-- /container -->
+
+<footer class="footer">
+    <div class="container text-center">   
+
+        <p class="text-muted">
+            <!-- 배송조회 항목수 -->           
+            <!-- LOOP START row_regtime_count -->
+            &nbsp;
+            {dt_regtime_date}({dt_ipaddress_count}<!--/{dt_regtime_count}-->)
+            &nbsp;
+            <!-- LOOP END row_regtime_count -->
+            <!-- 배송조회 항목수 --> 
+        </p>
+        <p class="text-muted">jujeonghwan@gmail.com</p>     
+
+    </div>
+</footer>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    /*
+    // a 태그 상태표시줄 표시 막음
+    $("a").each(function(){        
+        var $this = $(this);
+        var href = this.href;
+        var target = this.target;
+
+        if (href && !this.onclick) {
+            $this.removeAttr('href').wrap($('<span/>').css('cursor','pointer').click(function(){if(target=='_blank'){window.open(href)}else{location.assign(href);}}));
+        }
+        else if (this.onclick) {
+            $this.removeAttr('href').css('cursor','pointer');
+        }
+    });
+    */
+});
+
+// 안드로이드앱 (Android App) 더보기
+function go_app_Android() {
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    var location_href = "";
+    location_href += "/info.php";
+    location_href += "?infotype=android";
+    
+    $(location).attr("href", location_href);
+}
+
+// 아이폰앱 (iOS App) 더보기
+function go_app_iOS() {
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    var location_href = "";
+    location_href += "/info.php";
+    location_href += "?infotype=ios";
+    
+    $(location).attr("href", location_href);
+}
+
+// 정보 (Web) 더보기 (앱정보 새로고침)
+function go_app_update() {
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    var location_href = "";
+    location_href += "/linkpriceapp_update_process.php";
+    location_href += "?dummy=dummy";
+    location_href += "&deliverytype=";
+    location_href += "&keyword=";
+    
+    $(location).attr("href", location_href);
+}
+    
+</script>
+
+<!-- Automatically smarter ads for AMP -->
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+
+<!-- Automatically smarter ads for AMP -->
+<amp-auto-ads type="adsense" data-ad-client="ca-pub-7596282956342906"></amp-auto-ads>
+
+</body>
+</html>

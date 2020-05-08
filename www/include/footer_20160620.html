@@ -1,0 +1,138 @@
+
+<div class="container">
+    <!-- 배너 -->
+    <div class="panel panel-default">
+        <div class="panel-body">         
+        
+            <div class="row form-group">  
+                <div class="col-md-12 text-center">
+                    <!-- 택배사 배너 -->               
+                    <div class="col-md-2 text-center">
+                        &nbsp;<br />
+                        <span class="col-md-12 badge"><label class="control-label">택배사 배송조회 가기</label></span>                    
+                        &nbsp;<br />
+                    </div>
+                    <!-- LOOP START row_delivery -->
+                    <div class="col-md-2 text-center">
+                        &nbsp;<br />
+                        {delivery_text}<br />
+                        <a href="{delivery_link}" target="_blank">{delivery_img}</a><br />
+                    </div>
+                    <!-- LOOP END row_delivery -->                                      
+                    <!-- 택배사 배너 -->  
+
+
+                    <!-- ********** 광고 매너 왼쪽 위치 시작 ********** -->
+
+                    <!-- 광고 배너 (링크프라이스) -->
+                    <!--
+                    <div class="col-md-3 text-center">
+                        &nbsp;<br />
+                        <span class="col-md-12 badge"><label class="control-label">배너</label></span>                    
+                        &nbsp;<br />
+                    </div>
+                    -->
+                    <!-- LOOP START row_ad_150_60 -->    
+                    <div class="col-md-2 text-center">
+                        &nbsp;<br />
+                        {ad_linkprice_150_60_text}<br />
+                        <iframe src="{ad_linkprice_150_60_src}" width="150" height="60" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="background-image:url(/files/logo/DeliveryTracking.png);"></iframe>
+                    </div>
+                    <!-- LOOP END row_ad_150_60 -->    
+                    <!-- 광고 배너 (링크프라이스) -->
+
+                    <!-- ********** 광고 매너 왼쪽 위치 끝 ********** -->
+                </div>
+
+
+<!--
+                <div class="col-md-4 text-center">                  
+-->
+                    <!-- ********** 광고 매너 오른쪽 위치 시작 ********** -->
+
+                    <!-- ********** 광고 매너 오른쪽 위치 끝 ********** -->
+
+
+                    <!-- 카테고리링크 메뉴형 (링크프라이스) -->
+<!--
+                    <div class="col-md-12 text-center">
+                        &nbsp;<br />
+                        <span class="col-md-12 badge"><label class="control-label">분류별 사이트 가기</label></span>                    
+                    </div> 
+                    <div class="col-md-12 text-center">
+                        &nbsp;<br />
+                        <iframe scrolling="no" scrollbars="yes" src="http://minishop.linkprice.com/minishop.php?minishop_id=category&l_cd1=S&affiliate_id=A100532968&style=3&line=3&color=skyblue&show_cat=CiGOAPaJYRkdFQLnbWNjgmhSBVclKEfHZopDqs&width=300&height=440" width="300" height="440" border="0" frameborder="0" marginwidth="0" marginheight="0" leftmargin="0" topmargin="0"></iframe>
+                    </div>
+-->
+                    <!-- 카테고리링크 메뉴형 (링크프라이스) --> 
+<!--
+                </div>
+-->
+                
+                <!-- 로고링크 -->
+                <!--
+                <div class="col-md-6 text-center">    
+                    &nbsp;<br />
+                    쇼핑몰 가기<br />
+                    <iframe scrolling="no" src="http://minishop.linkprice.com/minishop.php?minishop_id=logo&affiliate_id=A100532968&width=468&margin=10&scroll=&direction=L&speed=61&border=&color=FFFFFF" width="468" height="78" border="0" frameborder="0" marginwidth="0" marginheight="0" leftmargin="0" topmargin="0"></iframe>
+                </div>
+                -->
+                <!-- 로고링크 -->    
+                
+                <!-- 자동배너링크 -->
+                <!--
+                <div class="col-md-6 text-center">    
+                    &nbsp;<br />
+                    배너<br />
+                    <script type="text/javascript" src="http://smart.linkprice.com/minishop.php?minishop_id=4&affiliate_id=A100532968&width=468&height=60&target=_blank&show_type=&hiding=1"> </script>
+                </div>         
+                <!-- 자동배너링크 -->
+
+                <!-- 카테고리링크 하단바형 (링크프라이스) -->    
+                <div class="col-md-12 text-center">
+                    <div class="col-md-2 text-center">
+                        &nbsp;<br />
+                        <span class="col-md-12 badge"><label class="control-label">분류별 사이트 가기</label></span>                    
+                        &nbsp;<br />
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center">              
+                    &nbsp;<br />
+                    <iframe scrolling="no" scrollbars="no" src="http://minishop.linkprice.com/minishop.php?minishop_id=category&l_cd1=S&affiliate_id=A100532968&style=2&line=5&color=red&show_cat=CiGOAPaJYRkdFQLnbWNjgmhSBVclKEfHZoDqs&width=1040" width="1040" height="650" border="0" frameborder="0" marginwidth="0" marginheight="0" leftmargin="0" topmargin="0"></iframe>
+                </div>                   
+                <!-- 카테고리링크 하단바형 (링크프라이스) -->
+
+            </div>
+
+        </div>
+    </div>
+    <!-- 배너 -->
+    
+    
+</div><!-- /container -->
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    /*
+    // a 태그 상태표시줄 표시 막음
+    $("a").each(function(){        
+        var $this = $(this);
+        var href = this.href;
+        var target = this.target;
+
+        if (href && !this.onclick) {
+            $this.removeAttr('href').wrap($('<span/>').css('cursor','pointer').click(function(){if(target=='_blank'){window.open(href)}else{location.assign(href);}}));
+        }
+        else if (this.onclick) {
+            $this.removeAttr('href').css('cursor','pointer');
+        }
+    });
+    */
+});
+    
+</script>
+
+</body>
+</html>

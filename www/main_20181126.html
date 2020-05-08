@@ -1,0 +1,460 @@
+<!--<form id="form_main" method="get" onsubmit="return false;">-->
+<form id="form_main" method="post">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+                   
+<div class="container">
+    
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!-- 구글 광고 -->
+            <div class="row form-group">   
+                <div class="col-md-12 text-center">
+                    <!--<span class="text-muted">[Info]</span><br />-->
+                    <!-- Google AdSense WST 시작 -->
+                    <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-7596282956342906"
+                         data-ad-slot="1612483676"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <!-- Google AdSense WST 끝 -->
+                </div>    
+            </div> 
+            <!-- 구글 광고 -->
+
+            <hr />
+            
+            <div class="row form-group">
+                <div class="col-md-2">
+                    <span class="col-md-12 badge"><label class="control-label">택배사</label></span>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control input-md" id="deliverytype" name="deliverytype">{option_deliverytype}</select>
+                </div>
+                <!-- radio(옵션) 박스
+                <div class="col-md-10">
+                    {radio_deliverytype}
+                </div>
+                -->
+                <div class="col-md-2">
+                    <span class="col-md-12 badge"><label class="control-label">운송장번호</label></span>
+                </div>
+                <div class="col-md-3">
+                    <!--
+                    <input type="search" class="form-control" id="keyword" name="keyword" value="{keyword}" style="ime-mode:disabled;" />
+                    -->
+                    <textarea class="form-control" id="keyword" name="keyword" style="ime-mode:disabled;" rows="3" cols="30">{keyword}</textarea>
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" id="button_go_search" value="조회하기" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div class="row">
+        <div class="col-md-2 text-left">
+            <input type="button" class="btn btn-danger btn-xs" id="button_go_select_delete_process" value="선택항목 삭제하기" />
+        </div>
+    </div>            
+    -->
+
+    <div class="row">
+        <div class="col-md-12 text-left">
+            <a class="btn btn-info btn-xs" href="/connectinfo.php" role="button">사용자접속정보 (IP주소 웹브라우저) 더보기</a>
+            &nbsp;
+            IP({ip_address})
+        </div>
+    </div>
+
+    <div>            
+        <table class="table table-bordered table-condensed table-hover table-responsive">
+        <!--<table class="table table-bordered table-condensed table-hover table-responsive" id="link">-->
+            <colgroup>
+                <!--<col width="3%" />-->
+                <col width="5%" />
+                
+                <col width="" />
+                <col width="" />
+                <col width="" />
+                <col width="" />
+                <!--
+                <col width="23%" />  
+                <col width="23%" />
+                <col width="23%" />
+                <col width="23%" />
+                -->
+            </colgroup>
+            
+            <thead>
+                <tr class="danger">
+                    <!--<th class="text-center"><input type="checkbox" id="check_all" name="check_all" value="check_all" /></th>-->
+                    <th class="text-center">NO</th>
+
+                    <th class="text-center">택배사</th>                
+                    <th class="text-center">운송장번호</th>
+                    <th class="text-center">검색어</th>                
+                    <th class="text-center">조회일시</th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                <!-- LOOP START row -->
+                <tr class="{tr_class}">
+                    <!--<th rowspan="2" class="text-center"><input type="checkbox" id="check_dt_id_{dt_id}" name="check_dt_id[]" value="{dt_id}" /></th>-->
+                    <td rowspan="2" class="text-center">{no}</td>
+
+                    <td class="text-center"><strong>{dt_deliverytype_text}</strong></td>
+                    <td class="text-center">{dt_invoice}</td>
+                    <td class="text-center">{dt_keyword}</td>
+                    <td class="text-center">{dt_regtime}</td>
+                </tr>
+                <tr class="{tr_class}">
+                    <td class="text-center"><input type="button" class="btn btn-success btn-xs" value="상세 보기/닫기" onclick="deliverytracking_toggle('{dt_id}');" /></td>
+                    <td class="text-center"><span style="color:{color_dt_deliveryprogress}">[{dt_deliveryprogress}]</span></td>                
+                    <td class="text-center"><input type="button" class="btn btn-info btn-xs" value="다시 조회하기" onclick="go_search_again('{dt_deliverytype}', '{dt_keyword}');" /></td>
+                    <td class="text-center"><input type="button" class="btn btn-danger btn-xs" value="항목 삭제하기" onclick="deliverytracking_delete_process('{dt_id}');" /></td>
+                </tr>
+                <tr id="deliverytracking_tr_{dt_id}" class="deliverytracking_tr" style="display:{deliverytracking_display};">
+                    <td colspan="5" class="text-center">
+                        {dt_result}
+                        <!--
+                        <table class="table table-bordered table-condensed table-hover">
+                            <colgroup>
+                                <col width="100%" />
+                            </colgroup>                        
+                            <thead>                            
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center text-muted text-overflow">{dt_referer}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        -->                        
+                        <table class="table table-bordered table-condensed table-hover">
+                            <colgroup>
+                                <col width="100%" />
+                            </colgroup>                        
+                            <thead>                            
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <!--<td class="text-center text-muted text-overflow">-->
+                                    <td class="text-center text-muted">
+                                        <!-- 구글 광고 -->
+                                        {google_adsense_html}
+                                        <!-- 구글 광고 -->
+
+                                        <a href="{deliverytracking_url}" target="_blank">{dt_deliverytype_text} 배송조회주소 (운송장번호 : {dt_keyword}) [새창 조회 클릭]</a><br />
+                                        {deliverytracking_url}
+                                 
+                                        <!-- Trigger -->
+                                        <button type="button" class="btn btn-primary btn-xs" data-clipboard-text="{deliverytracking_url}">주소 복사하기</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <!-- LOOP END row -->
+            </tbody>
+        </table>
+    </div>
+
+<!--
+    <div class="row">
+        <div class="col-md-12 text-center">                    
+            <span class="text-muted">'택배사 추가, 오류 수정'할 '정보(택배사, 송장번호)'를 사이트 아래의 이메일로 보내주시면 작업하겠습니다.</span>                    
+        </div>
+    </div>
+-->
+    
+</div><!-- /container -->
+
+<input type="text" style="visibility:hidden; width:0px; hight:0px;" /> <!-- form 안에 textbox 추가 (1개만 있으면 엔터키에 자동 form sunmit 됨) -->
+
+</form>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    // $("#keyword").focus();   
+
+    // 페이지 로드시 윈도우 포커스
+    // $(this)[0].focus();
+    window.focus();
+
+    // 검색어가 없다면 전체항목 숨기기
+    /*
+    if ($.trim($("#keyword").val()) == "") {
+        $(".deliverytracking_tr").hide();    
+    }   
+    */ 
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // clipboard.js (https://clipboardjs.com/)
+    var clipboard = new Clipboard('.btn');
+
+    clipboard.on('success', function(e) {
+        alert("주소가 복사되었습니다! (Copied!)");
+        /*
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+
+        e.clearSelection();
+        */
+    });
+
+    clipboard.on('error', function(e) {
+        alert("복사가 지원되지 않는 브라우저입니다.! (Not copied!)");
+        /*
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        */
+    });
+    ////////////////////////////////////////////////////////////////////////////////
+
+        
+    // 검색어 엔터키 입력
+    $("#keyword").on("keyup keypress", function(e) {
+        if (e.keyCode == 13) {
+            // go_search();
+        }
+    });
+
+    // 조회하기 버튼 클릭
+    $("#button_go_search").on("click", function() {
+        go_search();
+    });
+    
+    // 선택항목 삭제하기 버튼 클릭
+    $("#button_go_select_delete_process").on("click", function() {
+        go_select_delete_process();
+    });
+    
+    // 체크박스 전체선택 클릭
+    $("#check_all").on("click", function() { 
+        var checked_value = $(this).prop("checked");
+        
+        checkbox_checked_all(checked_value);        
+    });
+});
+
+// Query string 구하기
+function get_list_querystring() {
+    var list_querystring = "";
+    
+    list_querystring += "&deliverytype=" + $.trim($("#deliverytype").val());                        // 택배사    
+    // list_querystring += "&deliverytype=" + $('input[name="deliverytype"]:checked').val();        // 택배사 (radio(옵션) 박스)    
+    list_querystring += "&keyword=" + encodeURIComponent($.trim($("#keyword").val()));
+    // list_querystring += "&page=" + $.trim($("#page").val());
+ 
+    return list_querystring;
+}
+    
+// 조회하기
+function go_search() {
+    
+    /*
+    // alert ($.trim($("#deliverytype").val()));
+    if ($.trim($("#deliverytype").val()) == "tnt") {
+        if (confirm("TNT(국제) 배송조회 작업중입니다.")) {
+            return;
+        }
+    }
+    */    
+    
+    if ($.trim($("#deliverytype").val()) == "") {
+        alert("택배사를 선택하세요.");
+        $("#deliverytype").focus();
+        return;
+    }
+    
+    if ($.trim($("#keyword").val()) == "") {
+        alert("운송장번호를 입력하세요.");
+        $("#keyword").focus();
+        return;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // 운송장번호 여러개 입력시 처리
+
+    var keyword_array = $.trim($("#keyword").val()).split(/\r\n|\r|\n/);
+    // alert(keyword_array.length);
+
+    if (keyword_array.length > 1) {
+        if ($.trim($("#deliverytype").val()) == "bundle") {
+            alert("'전체택배사(일괄조회)' 선택했을 때는 운송장번호를 1개만 조회 가능 합니다.");
+            $("#keyword").focus();
+            return;
+        }
+
+        // 중복실행 확인
+        if ($("#duplication_tag").val() == "Y") {
+            alert("이미 처리중입니다.");        
+            return;
+        }    
+        $("#duplication_tag").val("Y");
+        
+        // form submit
+        $("#form_main").attr("target", "_self");
+        $("#form_main").attr("method", "post");
+        $("#form_main").attr("action", "deliverytracking_multisearch.php");
+        $("#form_main").submit();
+    }
+
+    // 운송장번호 여러개 입력시 처리
+    ////////////////////////////////////////////////////////////////////////////////
+
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("이미 처리중입니다.");        
+        return;
+    }
+
+    var list_querystring = get_list_querystring();
+    
+    var location_href = "";
+    // location_href += "{site_url}";      // 예) http://www.deliverytracking.kr/
+            
+    if ($.trim($("#deliverytype").val()) == "bundle") {
+        ////////////////////////////////////////////////////////////////////////////////
+        // 전체 택배사 일괄조회
+
+        if (!confirm("전체택배사에 대해서 입력한 운송장번호로 일괄 조회하시겠습니까?\n시간이 많이 소요됩니다. 완료될 때까지 기다려주세요.")) {
+            return;
+        }
+            
+        $("#duplication_tag").val("Y");
+
+        location_href += "deliverytracking_bundle_search.php";
+        location_href += "?dummy=dummy";
+        location_href += list_querystring;
+        $(location).attr("href", location_href);
+        // 전체 택배사 일괄조회
+        ////////////////////////////////////////////////////////////////////////////////
+    }
+    else {
+        ////////////////////////////////////////////////////////////////////////////////
+        // 개별 택배사 조회
+  
+        $("#duplication_tag").val("Y");
+
+        location_href += "/";
+        location_href += "?dummy=dummy";
+        location_href += list_querystring;
+        $(location).attr("href", location_href);
+
+        // 개별 택배사 조회        
+        ////////////////////////////////////////////////////////////////////////////////
+    }
+}
+
+// 선택항목 삭제하기
+function go_select_delete_process() {            
+    if ($('input:checkbox[name="check_dt_id[]"]:checked').length <= 0) {
+        alert("한항목 이상 선택하세요.");
+        return;
+    }
+    
+    if (!confirm("선택항목을 삭제하시겠습니까?")) {
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "deliverytracking_select_delete_process.php");    
+    $("#form_main").submit();
+}
+
+// 체크박스 전체 선택 해제
+function checkbox_checked_all(checked_value) {
+    // alert(checked_value);
+    $('input:checkbox[name="check_dt_id[]"]').each(function() {   
+        $(this).prop("checked", checked_value);
+        // $(this).attr("checked", checked_value);
+    });
+}
+
+// 상세보기/닫기
+function deliverytracking_toggle(dt_id) {    
+    // 전체항목 숨기기
+    // $(".deliverytracking_tr").hide();
+    
+    // 선택항목 보이기
+    // $("#deliverytracking_tr_" + dt_id).show();   
+
+    // 선택항목 보이기/숨기기
+    $("#deliverytracking_tr_" + dt_id).toggle();
+}
+
+// 다시조회
+function go_search_again(dt_deliverytype, dt_keyword) {
+    /*
+    if (!confirm("다시조회하시겠습니까?")) {
+        return;
+    }
+    */
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    var location_href = "";
+    location_href += "{site_url}";      // 예) http://www.deliverytracking.kr/
+    location_href += "?dummy=dummy";
+    location_href += "&deliverytype=" + dt_deliverytype;
+    location_href += "&keyword=" + encodeURIComponent(dt_keyword);
+    
+    $(location).attr("href", location_href);
+}
+
+// 삭제하기
+function deliverytracking_delete_process(dt_id) {
+    /*
+    if (!confirm("삭제하시겠습니까?")) {
+        return;
+    }
+    */
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        // alert("이미 처리중입니다.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+        
+    var list_querystring = get_list_querystring();
+    
+    var location_href = "deliverytracking_delete_process.php?dummy=dummy";
+    location_href += "&dt_id=" + dt_id;    
+    location_href += list_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+</script>

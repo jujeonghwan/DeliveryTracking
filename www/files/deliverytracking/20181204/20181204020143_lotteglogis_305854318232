@@ -1,0 +1,31 @@
+HTTP/1.1 200 
+Server: nginx
+Date: Mon, 03 Dec 2018 17:01:44 GMT
+Content-Type: text/html;charset=UTF-8
+Content-Length: 1019
+Connection: close
+Content-Language: ko-KR
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>롯데글로벌로지스</title>
+<link rel="stylesheet" type="text/css" href="/styles/error.css" />
+<script type="text/javascript" src="/js/lib/jquery.js"></script>
+<script type="text/javascript" src="/js/lib/hyundaiuni-util.js"></script>
+<script type="text/javascript" src="/js/lib/hyundaiuni-report.js"></script>
+</head>
+<body class="bg_" style="overflow-x: hidden;">
+<div class="content">
+    <div class="title">
+        <span></span>오류</div>
+    <div class="desc">
+        오류가 발생했습니다.</div>
+    <div class="homepage">
+        Homepage: <a href="https://www.lotteglogis.com">https://www.lotteglogis.com</a>
+    </div>
+</div>
+</body>
+</html>

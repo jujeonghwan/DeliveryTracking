@@ -1,0 +1,12 @@
+HTTP/1.0 200 OK
+Date: Sun, 08 Mar 2020 18:33:53 GMT
+Server: Apache
+Cache-Control: no-cache
+Cache-Control: no-store
+Pragma: no-cache
+Content-Length: 1204
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Connection: close
+Content-Type: application/text;charset=utf8
+
+{"responseHeader":{"result":"success","message":"","requestNo":null},"orderHeader":{"shipper":"RJ **","shipperAddr":"530 S Catalina St., Los**","deliveryTo":"","consignee":"T**","ordRefNo":"5283","consigneeAddr":"Gyeonggi-do Icheon-si Majang-myeon**","dlvNo":"6064802527783"},"trackingEvents":{"trackingEvents":[{"date":"20200112","code":"20","description":"상품을 발송(주문접수)하였습니다.","location":"판매자","time":"1232"},{"date":"20200114","code":"28","description":"LAX 공항에서 출발 예정입니다.","location":"발송국 항공사","time":"0919"},{"date":"20200114","code":"29","description":"ICN 공항에 (98824401974\/2020-01-15) 도착 예정입니다.","location":"인천국제공항","time":"1509"},{"date":"20200115","code":"31","description":"인천 특송창고 입고 전 세관 수입신고 중입니다.","location":"특송장","time":"1043"},{"date":"20200115","code":"34","description":"세관오류[납세의무자명은(는) 문자열길이가 맞지 않습니다.[Thiha Soe San=<...]","location":"세관","time":"1101"},{"date":"20200115","code":"32","description":"인천 특송창고에 입고 되었습니다.","location":"특송장","time":"1426"}]}}

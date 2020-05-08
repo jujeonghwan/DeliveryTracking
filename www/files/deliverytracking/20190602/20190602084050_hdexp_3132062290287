@@ -1,0 +1,15 @@
+HTTP/1.1 302 Found
+Date: Sat, 01 Jun 2019 23:43:04 GMT
+Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips
+Location: https://hdexp.co.kr/deliverySearch2.hd?barcode=3132062290287
+Content-Length: 244
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>302 Found</title>
+</head><body>
+<h1>Found</h1>
+<p>The document has moved <a href="https://hdexp.co.kr/deliverySearch2.hd?barcode=3132062290287">here</a>.</p>
+</body></html>
