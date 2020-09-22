@@ -162,8 +162,7 @@ $COMMON_DELIVERYURL_ARRAY = array (
     "kgbps"             =>  "https://www.kgbps.com/delivery/delivery_result.jsp?item_no={invoice_no}",                                                          // 예) https://www.kgbps.com/delivery/delivery_result.jsp?item_no=360014967200
     // // "kglogis"     =>  "http://www.kglogis.co.kr/delivery/delivery_result.jsp?item_no={invoice_no}",                                                       // 예) http://www.kglogis.co.kr/delivery/delivery_result.jsp?item_no=304348927584
     "korexinbound"      =>  "http://ex.korex.co.kr:7004/fis20/KIL_HttpCallExpTrackingInbound_Ctr.do?rqs_HAWB_NO={invoice_no}",                                  // 예) http://ex.korex.co.kr:7004/fis20/KIL_HttpCallExpTrackingInbound_Ctr.do?rqs_HAWB_NO=422102056493
-    // "lotteglogis"    =>  "https://www.lotteglogis.com/home/personal/inquiry/track?action=processInvoiceLinkSubmit",
-    "lotteglogis"       =>  "https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo={invoice_no}",
+    "lotteglogis"       =>  "https://www.lotteglogis.com/home/personal/inquiry/track?action=processInvoiceLinkSubmit",
     "lotteglogis_i"     =>  "https://www.lotteglogis.com/home/reservation/global/track_ajax?inv_no={invoice_no}",
     // "mailexglobal"   =>  "http://www.mailexglobal.com/en/cs-detail.html?formselect1={invoice_no}&searen_val={invoice_no2}",                                  // http://www.mailexglobal.com/en/cs-detail.html?formselect1=2011&searen_val=3008615
     "mailexglobal"      =>  "http://system.swgexp.com/common/tracking_order.asp?order_no={invoice_no}",                                                         // http://system.swgexp.com/common/tracking_order.asp?order_no=20123008615
@@ -190,11 +189,11 @@ $COMMON_DELIVERYURL_PRE_ARRAY = array (
     "cupost"        =>  "https://www.cupost.co.kr/postbox/delivery/localResult.cupost?invoice_no={invoice_no}",
     "cupostpickup"  =>  "https://www.cupost.co.kr/postbox/delivery/pickupResultNew.cupost?search_type_temp=02&invoice_no={invoice_no}&search_type=02",
     "fedex"         =>  "https://www.fedex.com/apps/fedextrack/index.html?tracknumbers={invoice_no}&cntry_code=kr",
-    // "hdexp"      =>  "https://hdexp.co.kr/delivery_search.hd",
+    // "hdexp"         =>  "https://hdexp.co.kr/delivery_search.hd",
     "hdexp"         =>  "http://hdexp.co.kr/basic_delivery.hd?barcode={invoice_no}",
     // "hlc"        =>  "https://www.hlc.co.kr/home/personal/inquiry/track?InvNo={invoice_no}&action=processInvoiceSubmit",
-    // "hyundaiexp" =>  "https://www.hlc.co.kr/home/personal/inquiry/track?InvNo={invoice_no}&action=processInvoiceSubmit",
-    // "lotteglogis"=>  "https://www.lotteglogis.com/home/personal/inquiry/track?InvNo={invoice_no}&action=processInvoiceSubmit",   
+    // "hyundaiexp"    =>  "https://www.hlc.co.kr/home/personal/inquiry/track?InvNo={invoice_no}&action=processInvoiceSubmit",
+    "lotteglogis"   =>  "https://www.lotteglogis.com/home/personal/inquiry/track?InvNo={invoice_no}&action=processInvoiceSubmit",   
     "lotteglogis_i" =>  "https://www.lotteglogis.com/home/reservation/global/track?InvNo={invoice_no}&action=processInvoiceSubmit",   
     "phlpost"       =>  "http://tnt.phlpost.gov.ph/index/",
     "postbox"       =>  "http://www.cvsnet.co.kr/postbox/m_delivery/local/local.jsp?click_ck=Y&invoice_no={invoice_no}",
@@ -227,7 +226,7 @@ $COMMON_DELIVERYMETHOD_ARRAY = array (
     "kgbps"             =>  "POST",
     // "kglogis"        =>  "GET",
     "korexinbound"      =>  "GET",
-    "lotteglogis"       =>  "GET",
+    "lotteglogis"       =>  "POST",
     "lotteglogis_i"     =>  "POST",
     "mailexglobal"      =>  "GET",
     "phlpost"           =>  "POST",
@@ -266,7 +265,7 @@ $COMMON_DELIVERYLINK_ARRAY = array (
     "kgbps"             =>  "https://www.kgbps.com/",
     // "kglogis"        =>  "http://www.kglogis.co.kr/delivery/waybill.jsp",
     "korexinbound"      =>  "https://www.doortodoor.co.kr/international/in_003.jsp",
-    "lotteglogis"       =>  "https://www.lotteglogis.com/home/reservation/tracking/index",
+    "lotteglogis"       =>  "https://www.lotteglogis.com/home/personal/inquiry/track",
     "lotteglogis_i"     =>  "https://www.lotteglogis.com/home/reservation/global/track",
     "mailexglobal"      =>  "http://www.mailexglobal.com/cs1.html",
     "phlpost"           =>  "http://tnt.phlpost.gov.ph/index/",

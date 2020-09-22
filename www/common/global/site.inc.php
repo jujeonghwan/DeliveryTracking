@@ -55,7 +55,7 @@ function get_deliverytracking_result($deliverytype, $invoice_no) {
         case $COMMON_DELIVERYTYPE_ARRAY["합동택배"]: 
         // case $COMMON_DELIVERYTYPE_ARRAY["현대택배"]: 
         // case $COMMON_DELIVERYTYPE_ARRAY["현대로지스틱스국제특송(국제)"]: 
-        case $COMMON_DELIVERYTYPE_ARRAY["롯데택배"]: 
+        // case $COMMON_DELIVERYTYPE_ARRAY["롯데택배"]: 
         case $COMMON_DELIVERYTYPE_ARRAY["롯데글로벌로지스(국제)"]: 
         case $COMMON_DELIVERYTYPE_ARRAY["PHLPOST필리핀국제우편(국제)"]: 
 
@@ -180,9 +180,11 @@ function get_deliverytracking_result($deliverytype, $invoice_no) {
             } 
             */
 
+            /*
             if ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["롯데택배"]) {
                 sleep(1);
-            }  
+            } 
+            */ 
 
             if ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["롯데글로벌로지스(국제)"]) {
                 sleep(1);
@@ -500,7 +502,7 @@ function get_deliverytracking_result($deliverytype, $invoice_no) {
             ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["DHL(국제)"]) ||
             // ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["FedEx(국제)"]) ||
             // ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["합동택배"]) ||
-            ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["롯데택배"]) ||        // 임시로 넣어놓음(2018.12.03): 롯데택배 오류
+            // ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["롯데택배"]) ||        // 임시로 넣어놓음(2018.12.03): 롯데택배 오류
             ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["TNT(국제)"]) ||
             ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["UPS(국제)"]) ||
             ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["ZZZ"]) ) {            // 소스편리하게 처리하기 위해서 의미 없는 항목 넣어놓음
@@ -700,6 +702,7 @@ function get_deliverytracking_result($deliverytype, $invoice_no) {
 
     ////////////////////////////////////////////////////////////////////////////////
     // 롯데택배의 경우에는 임시로 <iframe>으로 처리 (2018.12.04)
+    /*
     if ($deliverytype == $COMMON_DELIVERYTYPE_ARRAY["롯데택배"]) {
         $text = "
             <iframe src=\"" . "https://www.lotteglogis.com/open/tracking?invno=" . $invoice_no . "\" 
@@ -708,6 +711,7 @@ function get_deliverytracking_result($deliverytype, $invoice_no) {
 
         // echo "<xmp>" . $text . "</xmp>"; exit;
     }
+    */
     // 롯데택배의 경우에는 임시로 <iframe>으로 처리 (2018.12.04)
     ////////////////////////////////////////////////////////////////////////////////
 
